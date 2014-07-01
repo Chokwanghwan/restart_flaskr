@@ -1,6 +1,6 @@
 import os
 import sqlite3
-from flask import Flask
+from flask import Flask, g
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -17,7 +17,17 @@ app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 def connect_db():
 	rv = sqlite3.connect(app.config['DATABASE'])
 	rv.row_factory = sqlite3.Row
-	return 
+	return rv
+
+def get_db():
+	if not hasattr(g, 'sqlite_db'):
+		g.sqlite_db = connect_db()
+		return g.sqlite_db
+
+@app.teardown_appcontext
+def close_db():
+	if hasattr(g, 'sqlite_db'):
+		g.sqlite_db.close()
 
 if __name__ == '__main__':
 	app.run()
