@@ -1,6 +1,6 @@
 drop table if exists entries;
-create table People(
-	P_id integer primary key autoincrement,
-	name varchar(10) not null,
+create table entries (
+	id integer primary key autoincrement,
+	title text not null,
 	text text not null
 );
