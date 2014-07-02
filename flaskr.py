@@ -11,7 +11,7 @@ app.config.update(dict(
 	DEBUG = True,
 	SECRET_KEY = 'developement key',
 	USERNAME = 'admin',
-	PASSWORD = 'dafault'
+	PASSWORD = 'default'
 ))
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
@@ -58,7 +58,7 @@ def add_entry():
 def login():
 	error = None
 	if request.method == 'POST':
-		if requset.form['username'] != app.config['USERNAME']:
+		if request.form['username'] != app.config['USERNAME']:
 			error = 'Invalid username'
 		elif request.form['password'] != app.config['PASSWORD']:
 			error = 'Invalid password'
